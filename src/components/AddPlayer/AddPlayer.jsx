@@ -14,14 +14,18 @@ const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
 
     const playerList = [p1, p2, p3, p4];
 
-    const uniquePlayers = new Set(playerList);
+    const lowerCaseNames = playerList.map((player) => {
+      return player.toLowerCase();
+    });
 
-    console.log(uniquePlayers.size, playerList.length);
+    const uniquePlayers = new Set(lowerCaseNames);
 
     if (p1 === "" || p2 === "" || p3 === "" || p4 === "") {
+      setUniquePlayer(false);
       setEmptyPlayer(true);
       return;
     } else if (uniquePlayers.size !== playerList.length) {
+      setEmptyPlayer(false);
       setUniquePlayer(true);
     } else {
       // Takes playerData as prop/function from app.jsx and passes player data from form to function
