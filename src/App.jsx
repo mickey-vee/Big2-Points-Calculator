@@ -29,9 +29,14 @@ function App() {
 
   // Function to reset game
   const resetGame = () => {
-    confirm("Do you want to reset the game?");
-    setAddPlayers(true);
-    setGameDetails({ playerPoints: [0, 0, 0, 0], round: 0, winnerName: "" });
+    let confirmReset = confirm("Do you want to reset the game?");
+
+    if (confirmReset) {
+      setAddPlayers(true);
+      setGameDetails({ playerPoints: [0, 0, 0, 0], round: 0, winnerName: "" });
+    } else {
+      return;
+    }
   };
 
   return (
