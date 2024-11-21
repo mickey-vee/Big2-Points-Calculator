@@ -24,7 +24,7 @@ function App() {
     if (roundEdited) {
       setGameDetails(() => ({
         playerPoints: points,
-        round: editRoundNumber,
+        round: parseInt(editRoundNumber),
         winnerName: winner,
       }));
       setRoundEdited(false);
