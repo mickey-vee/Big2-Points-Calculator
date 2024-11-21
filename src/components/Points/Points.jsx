@@ -38,10 +38,6 @@ const Points = ({ playerNames, gameDetails }) => {
     }
   }, [roundDetails]);
 
-  useEffect(() => {
-    console.log(roundDetails);
-  }, [roundDetails]);
-
   return (
     <div className="rounds">
       {history.map((item, index) => (
