@@ -2,10 +2,10 @@ import "./AddPlayer.scss";
 import { useState } from "react";
 
 const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
-  const [p1, setP1] = useState("");
-  const [p2, setP2] = useState("");
-  const [p3, setP3] = useState("");
-  const [p4, setP4] = useState("");
+  const [p1, setP1] = useState("a");
+  const [p2, setP2] = useState("b");
+  const [p3, setP3] = useState("c");
+  const [p4, setP4] = useState("d");
   const [uniquePlayer, setUniquePlayer] = useState(false);
   const [emptyPlayer, setEmptyPlayer] = useState(false);
 
