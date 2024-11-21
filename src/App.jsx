@@ -12,6 +12,7 @@ function App() {
     round: 0,
     winnerName: "",
   });
+  const [roundEdited, setRoundEdited] = useState(false);
 
   // Function to get player data from AddPlayer component
   const getPlayerData = (playerList) => {
@@ -19,12 +20,21 @@ function App() {
   };
 
   // Function to get game details
-  const getGameDetails = (points, winner) => {
-    setGameDetails((prevGameDetails) => ({
-      playerPoints: points,
-      round: prevGameDetails.round + 1, // Increment the round by 1
-      winnerName: winner,
-    }));
+  const getGameDetails = (points, winner, editRoundNumber) => {
+    if (roundEdited) {
+      setGameDetails(() => ({
+        playerPoints: points,
+        round: editRoundNumber,
+        winnerName: winner,
+      }));
+      setRoundEdited(false);
+    } else {
+      setGameDetails((prevGameDetails) => ({
+        playerPoints: points,
+        round: prevGameDetails.round + 1, // Increment the round by 1
+        winnerName: winner,
+      }));
+    }
   };
 
   // Function to reset game
@@ -53,6 +63,7 @@ function App() {
           playerNames={playerNames}
           getGameDetails={getGameDetails}
           gameDetails={gameDetails}
+          setRoundEdited={setRoundEdited}
         />
       )}
 
