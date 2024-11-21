@@ -6,15 +6,25 @@ const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
   const [p2, setP2] = useState("Taryn");
   const [p3, setP3] = useState("Enney");
   const [p4, setP4] = useState("Reza");
+  const [uniquePlayer, setUniquePlayer] = useState(false);
 
   const submitForm = (e) => {
     e.preventDefault();
 
     const playerList = [p1, p2, p3, p4];
 
-    // Takes playerData as prop/function from app.jsx and passes player data from form to function
-    getPlayerData(playerList);
-    setAddPlayers(false);
+    const uniquePlayers = new Set(playerList);
+
+    console.log(uniquePlayers.size, playerList.length);
+
+    if (uniquePlayers.size !== playerList.length) {
+      setUniquePlayer(true);
+      return;
+    } else {
+      // Takes playerData as prop/function from app.jsx and passes player data from form to function
+      getPlayerData(playerList);
+      setAddPlayers(false);
+    }
   };
 
   return (
@@ -69,6 +79,11 @@ const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
               className="player-form__input"
             />
           </label>
+          {uniquePlayer ? (
+            <div className="player-form__error">
+              Re-enter player names, players must have different names.
+            </div>
+          ) : null}
           <button type="submit" className="player-form__button">
             Start Game
           </button>

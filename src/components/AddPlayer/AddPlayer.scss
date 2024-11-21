@@ -25,4 +25,11 @@
     border: none;
     cursor: pointer;
   }
+
+  &__error {
+    font-size: 18px;
+    color: rgb(223, 55, 55);
+    font-weight: 700;
+    text-align: center;
+  }
 }
