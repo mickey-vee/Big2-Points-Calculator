@@ -9,7 +9,7 @@ const GetPoints = ({
 }) => {
   // Use a single object to store both points and winner
   const [roundDetails, setRoundDetails] = useState({
-    points: Array(playerNames.length).fill(1), // Changed to 1 for testing change back to "" after
+    points: Array(playerNames.length).fill(""),
     winner: "",
   });
   const [editingRound, setEditingRound] = useState(false);
@@ -41,10 +41,10 @@ const GetPoints = ({
     });
 
     // Resets points to blank
-    setRoundDetails({ points: Array(playerNames.length).fill(1), winner: "" });
+    setRoundDetails({ points: Array(playerNames.length).fill(""), winner: "" });
     getGameDetails(calculatePoints, roundDetails.winner, numberOfEditedRound);
     setEditingRound(false);
-    setEditRoundNumber(1); // Changed to 1 for testing change back to "" after
+    setEditRoundNumber(1);
   };
 
   const handlePointsChange = (e, index) => {
