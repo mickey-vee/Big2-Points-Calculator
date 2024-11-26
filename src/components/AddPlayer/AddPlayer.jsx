@@ -2,19 +2,36 @@ import "./AddPlayer.scss";
 import { useState } from "react";
 
 const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
-  const [p1, setP1] = useState("Mickey");
-  const [p2, setP2] = useState("Taryn");
-  const [p3, setP3] = useState("Enney");
-  const [p4, setP4] = useState("Reza");
+  const [p1, setP1] = useState("");
+  const [p2, setP2] = useState("");
+  const [p3, setP3] = useState("");
+  const [p4, setP4] = useState("");
+  const [uniquePlayer, setUniquePlayer] = useState(false);
+  const [emptyPlayer, setEmptyPlayer] = useState(false);
 
   const submitForm = (e) => {
     e.preventDefault();
 
     const playerList = [p1, p2, p3, p4];
 
-    // Takes playerData as prop/function from app.jsx and passes player data from form to function
-    getPlayerData(playerList);
-    setAddPlayers(false);
+    const lowerCaseNames = playerList.map((player) => {
+      return player.toLowerCase();
+    });
+
+    const uniquePlayers = new Set(lowerCaseNames);
+
+    if (p1 === "" || p2 === "" || p3 === "" || p4 === "") {
+      setUniquePlayer(false);
+      setEmptyPlayer(true);
+      return;
+    } else if (uniquePlayers.size !== playerList.length) {
+      setEmptyPlayer(false);
+      setUniquePlayer(true);
+    } else {
+      // Takes playerData as prop/function from app.jsx and passes player data from form to function
+      getPlayerData(playerList);
+      setAddPlayers(false);
+    }
   };
 
   return (
@@ -69,6 +86,17 @@ const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
               className="player-form__input"
             />
           </label>
+          {emptyPlayer ? (
+            <div className="player-form__error">
+              Please enter a name for all players.
+            </div>
+          ) : null}
+          {uniquePlayer ? (
+            <div className="player-form__error">
+              Re-enter player names, players must have different names.
+            </div>
+          ) : null}
+
           <button type="submit" className="player-form__button">
             Start Game
           </button>

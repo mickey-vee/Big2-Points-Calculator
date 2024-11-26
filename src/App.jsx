@@ -12,6 +12,8 @@ function App() {
     round: 0,
     winnerName: "",
   });
+  const [roundEdited, setRoundEdited] = useState(false);
+  const [roundCounter, setRoundCounter] = useState(1);
 
   // Function to get player data from AddPlayer component
   const getPlayerData = (playerList) => {
@@ -19,19 +21,27 @@ function App() {
   };
 
   // Function to get game details
-  const getGameDetails = (points, winner) => {
-    setGameDetails((prevGameDetails) => ({
+  const getGameDetails = (points, winner, editRoundNumber) => {
+    const counter = roundEdited ? roundCounter : roundCounter + 1;
+    setRoundCounter(counter);
+
+    setGameDetails(() => ({
       playerPoints: points,
-      round: prevGameDetails.round + 1, // Increment the round by 1
+      round: roundEdited ? editRoundNumber : roundCounter,
       winnerName: winner,
     }));
   };
 
   // Function to reset game
   const resetGame = () => {
-    confirm("Do you want to reset the game?");
-    setAddPlayers(true);
-    setGameDetails({ playerPoints: [0, 0, 0, 0], round: 0, winnerName: "" });
+    let confirmReset = confirm("Do you want to reset the game?");
+
+    if (confirmReset) {
+      setAddPlayers(true);
+      setGameDetails({ playerPoints: [0, 0, 0, 0], round: 0, winnerName: "" });
+    } else {
+      return;
+    }
   };
 
   return (
@@ -48,6 +58,7 @@ function App() {
           playerNames={playerNames}
           getGameDetails={getGameDetails}
           gameDetails={gameDetails}
+          setRoundEdited={setRoundEdited}
         />
       )}
 
@@ -55,6 +66,8 @@ function App() {
         <Points
           playerNames={playerNames}
           gameDetails={gameDetails} // Pass the gameDetails object
+          roundEdited={roundEdited}
+          setRoundEdited={setRoundEdited}
         />
       )}
 
