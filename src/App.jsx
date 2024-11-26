@@ -24,10 +24,9 @@ function App() {
     if (roundEdited) {
       setGameDetails(() => ({
         playerPoints: points,
-        round: parseInt(editRoundNumber),
+        round: editRoundNumber,
         winnerName: winner,
       }));
-      setRoundEdited(false);
     } else {
       setGameDetails((prevGameDetails) => ({
         playerPoints: points,
@@ -72,6 +71,7 @@ function App() {
           playerNames={playerNames}
           gameDetails={gameDetails} // Pass the gameDetails object
           roundEdited={roundEdited}
+          setRoundEdited={setRoundEdited}
         />
       )}
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Points.scss";
 
-const Points = ({ playerNames, gameDetails, roundEdited }) => {
+const Points = ({ playerNames, gameDetails, roundEdited, setRoundEdited }) => {
   const [totalPoints, setTotalPoints] = useState(
     Array(playerNames.length).fill(0)
   );
@@ -14,23 +14,37 @@ const Points = ({ playerNames, gameDetails, roundEdited }) => {
   // Updating the points for each player
   useEffect(() => {
     if (roundEdited) {
-      setTotalPoints((prevPoints) =>
-        prevPoints.map((point, index) => point + (playerPoints[index] || 0))
-      );
+      setRoundEdited(false); //Reset edit round flag
 
-      console.log(history.find((round) => history.round === 1));
-      console.log(history.round);
+      for (let i = 0; i < history.length; i++) {
+        if (history[i].round === roundDetails.round) {
+          const updatedHistory = [...history];
 
-      let playerDetails = playerNames.map((player, index) => ({
-        playername: player,
-        playerpoints: playerPoints[index],
-      }));
+          updatedHistory[i] = {
+            ...updatedHistory[i],
+            playerdetails: playerNames.map((player, index) => ({
+              playername: player,
+              playerpoints: playerPoints[index],
+            })),
+            winner: winnerName,
+          };
 
-      setRoundDetails({
-        winner: winnerName,
-        round: round,
-        playerdetails: playerDetails,
-      });
+          // Update the history state with the modified array
+          setHistory(updatedHistory);
+
+          // Update totalPoints for edited players
+          setTotalPoints((prevPoints) =>
+            prevPoints.map(
+              (point, index) =>
+                point -
+                (history[i].playerdetails[index]?.playerpoints || 0) + // Subtract old points
+                (playerPoints[index] || 0) // Add new points
+            )
+          );
+
+          break;
+        }
+      }
     } else {
       setTotalPoints((prevPoints) =>
         prevPoints.map((point, index) => point + (playerPoints[index] || 0))
@@ -47,7 +61,7 @@ const Points = ({ playerNames, gameDetails, roundEdited }) => {
         playerdetails: playerDetails,
       });
     }
-  }, [playerPoints, playerNames, round, winnerName]);
+  }, [playerPoints, round, winnerName]);
 
   // updating the round
   useEffect(() => {
