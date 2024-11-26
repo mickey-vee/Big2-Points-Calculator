@@ -13,6 +13,7 @@ function App() {
     winnerName: "",
   });
   const [roundEdited, setRoundEdited] = useState(false);
+  const [roundCounter, setRoundCounter] = useState(1);
 
   // Function to get player data from AddPlayer component
   const getPlayerData = (playerList) => {
@@ -21,9 +22,12 @@ function App() {
 
   // Function to get game details
   const getGameDetails = (points, winner, editRoundNumber) => {
-    setGameDetails((prevGameDetails) => ({
+    const counter = roundEdited ? roundCounter : roundCounter + 1;
+    setRoundCounter(counter);
+
+    setGameDetails(() => ({
       playerPoints: points,
-      round: roundEdited ? editRoundNumber : prevGameDetails.round + 1,
+      round: roundEdited ? editRoundNumber : roundCounter,
       winnerName: winner,
     }));
   };
