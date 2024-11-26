@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Points.scss";
 
-const Points = ({ playerNames, gameDetails }) => {
+const Points = ({ playerNames, gameDetails, roundEdited }) => {
   const [totalPoints, setTotalPoints] = useState(
     Array(playerNames.length).fill(0)
   );
@@ -13,20 +13,40 @@ const Points = ({ playerNames, gameDetails }) => {
 
   // Updating the points for each player
   useEffect(() => {
-    setTotalPoints((prevPoints) =>
-      prevPoints.map((point, index) => point + (playerPoints[index] || 0))
-    );
+    if (roundEdited) {
+      setTotalPoints((prevPoints) =>
+        prevPoints.map((point, index) => point + (playerPoints[index] || 0))
+      );
 
-    let playerDetails = playerNames.map((player, index) => ({
-      playername: player,
-      playerpoints: playerPoints[index],
-    }));
+      console.log(history.find((round) => history.round === 1));
+      console.log(history.round);
 
-    setRoundDetails({
-      winner: winnerName,
-      round: round,
-      playerdetails: playerDetails,
-    });
+      let playerDetails = playerNames.map((player, index) => ({
+        playername: player,
+        playerpoints: playerPoints[index],
+      }));
+
+      setRoundDetails({
+        winner: winnerName,
+        round: round,
+        playerdetails: playerDetails,
+      });
+    } else {
+      setTotalPoints((prevPoints) =>
+        prevPoints.map((point, index) => point + (playerPoints[index] || 0))
+      );
+
+      let playerDetails = playerNames.map((player, index) => ({
+        playername: player,
+        playerpoints: playerPoints[index],
+      }));
+
+      setRoundDetails({
+        winner: winnerName,
+        round: round,
+        playerdetails: playerDetails,
+      });
+    }
   }, [playerPoints, playerNames, round, winnerName]);
 
   // updating the round

@@ -13,12 +13,12 @@ const GetPoints = ({
     winner: "",
   });
   const [editingRound, setEditingRound] = useState(false);
-  const [editRoundNumber, setEditRoundNumber] = useState("");
+  const [editRoundNumber, setEditRoundNumber] = useState(0);
 
   const submitPoints = (e) => {
     e.preventDefault();
 
-    console.log(editRoundNumber);
+    const numberOfEditedRound = parseInt(editRoundNumber);
 
     // If there's no winner prevent submission
     if (!roundDetails.winner) return;
@@ -42,7 +42,7 @@ const GetPoints = ({
 
     // Resets points to blank
     setRoundDetails({ points: Array(playerNames.length).fill(""), winner: "" });
-    getGameDetails(calculatePoints, roundDetails.winner, editRoundNumber);
+    getGameDetails(calculatePoints, roundDetails.winner, numberOfEditedRound);
     setEditingRound(false);
     setEditRoundNumber("");
   };

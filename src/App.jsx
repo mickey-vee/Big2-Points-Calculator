@@ -71,6 +71,7 @@ function App() {
         <Points
           playerNames={playerNames}
           gameDetails={gameDetails} // Pass the gameDetails object
+          roundEdited={roundEdited}
         />
       )}
 
