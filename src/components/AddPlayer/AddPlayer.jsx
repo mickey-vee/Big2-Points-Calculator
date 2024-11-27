@@ -6,6 +6,9 @@ const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
   const [p2, setP2] = useState("");
   const [p3, setP3] = useState("");
   const [p4, setP4] = useState("");
+  const [players, setPlayers] = useState([]);
+  const [numberOfPlayers, setNumberOfPlayers] = useState(2);
+
   const [uniquePlayer, setUniquePlayer] = useState(false);
   const [emptyPlayer, setEmptyPlayer] = useState(false);
 
@@ -34,8 +37,27 @@ const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
     }
   };
 
+  const submitPlayers = (numOfPlayers) => {
+    setNumberOfPlayers(numOfPlayers);
+  };
+
   return (
-    <>
+    <div>
+      <div>
+        <h2>How many players?</h2>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <button type="button" onClick={() => submitPlayers(2)}>
+            2 Players
+          </button>
+          <button type="button" onClick={() => submitPlayers(3)}>
+            3 Players
+          </button>
+          <button type="button" onClick={() => submitPlayers(4)}>
+            4 Players
+          </button>
+        </form>
+      </div>
+
       <div>
         <form onSubmit={submitForm} className="player-form">
           <label className="player-form__label">
@@ -102,7 +124,7 @@ const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
