@@ -6,6 +6,7 @@ const GetPoints = ({
   getGameDetails,
   gameDetails,
   setRoundEdited,
+  roundCounter,
 }) => {
   // Use a single object to store both points and winner
   const [roundDetails, setRoundDetails] = useState({
@@ -17,6 +18,8 @@ const GetPoints = ({
 
   const submitPoints = (e) => {
     e.preventDefault();
+
+    console.log(gameDetails.round);
 
     const numberOfEditedRound = parseInt(editRoundNumber);
 
@@ -64,7 +67,7 @@ const GetPoints = ({
   };
 
   const roundsArray = Array.from(
-    { length: gameDetails.round },
+    { length: roundCounter - 1 },
     (_, index) => index + 1
   );
 

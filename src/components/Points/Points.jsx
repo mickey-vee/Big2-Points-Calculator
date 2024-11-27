@@ -14,10 +14,10 @@ const Points = ({ playerNames, gameDetails, roundEdited, setRoundEdited }) => {
   // Updating the points for each player
   useEffect(() => {
     if (roundEdited) {
-      setRoundEdited(false); //Reset edit round flag
+      console.log(gameDetails.round);
 
       for (let i = 0; i < history.length; i++) {
-        if (history[i].round === roundDetails.round) {
+        if (history[i].round === gameDetails.round) {
           const updatedHistory = [...history];
 
           updatedHistory[i] = {
@@ -45,6 +45,8 @@ const Points = ({ playerNames, gameDetails, roundEdited, setRoundEdited }) => {
           break;
         }
       }
+
+      setRoundEdited(false); //Reset edit round flag
     } else {
       setTotalPoints((prevPoints) =>
         prevPoints.map((point, index) => point + (playerPoints[index] || 0))
@@ -84,7 +86,7 @@ const Points = ({ playerNames, gameDetails, roundEdited, setRoundEdited }) => {
           <div className="rounds-player-info">
             {item.playerdetails.map((player, playerIndex) => (
               <div key={playerIndex}>
-                <p>{player.playername}</p>
+                <p>{player.playername} points:</p>
                 <p>{player.playerpoints}</p>
               </div>
             ))}

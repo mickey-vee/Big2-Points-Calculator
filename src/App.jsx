@@ -59,6 +59,7 @@ function App() {
           getGameDetails={getGameDetails}
           gameDetails={gameDetails}
           setRoundEdited={setRoundEdited}
+          roundCounter={roundCounter}
         />
       )}
 
