@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Points.scss";
 
-const Points = ({ playerNames, gameDetails }) => {
+const Points = ({ playerNames, gameDetails, roundEdited, setRoundEdited }) => {
   const [totalPoints, setTotalPoints] = useState(
     Array(playerNames.length).fill(0)
   );
@@ -13,21 +13,55 @@ const Points = ({ playerNames, gameDetails }) => {
 
   // Updating the points for each player
   useEffect(() => {
-    setTotalPoints((prevPoints) =>
-      prevPoints.map((point, index) => point + (playerPoints[index] || 0))
-    );
+    if (roundEdited) {
+      for (let i = 0; i < history.length; i++) {
+        if (history[i].round === gameDetails.round) {
+          const updatedHistory = [...history];
 
-    let playerDetails = playerNames.map((player, index) => ({
-      playername: player,
-      playerpoints: playerPoints[index],
-    }));
+          updatedHistory[i] = {
+            ...updatedHistory[i],
+            playerdetails: playerNames.map((player, index) => ({
+              playername: player,
+              playerpoints: playerPoints[index],
+            })),
+            winner: winnerName,
+          };
 
-    setRoundDetails({
-      winner: winnerName,
-      round: round,
-      playerdetails: playerDetails,
-    });
-  }, [playerPoints, playerNames, round, winnerName]);
+          // Update the history state with the modified array
+          setHistory(updatedHistory);
+
+          // Update totalPoints for edited players
+          setTotalPoints((prevPoints) =>
+            prevPoints.map(
+              (point, index) =>
+                point -
+                (history[i].playerdetails[index]?.playerpoints || 0) + // Subtract old points
+                (playerPoints[index] || 0) // Add new points
+            )
+          );
+
+          break;
+        }
+      }
+
+      setRoundEdited(false); //Reset edit round flag
+    } else {
+      setTotalPoints((prevPoints) =>
+        prevPoints.map((point, index) => point + (playerPoints[index] || 0))
+      );
+
+      let playerDetails = playerNames.map((player, index) => ({
+        playername: player,
+        playerpoints: playerPoints[index],
+      }));
+
+      setRoundDetails({
+        winner: winnerName,
+        round: round,
+        playerdetails: playerDetails,
+      });
+    }
+  }, [playerPoints, round, winnerName]);
 
   // updating the round
   useEffect(() => {
@@ -36,10 +70,6 @@ const Points = ({ playerNames, gameDetails }) => {
         return [...prevHistory, roundDetails];
       });
     }
-  }, [roundDetails]);
-
-  useEffect(() => {
-    console.log(roundDetails);
   }, [roundDetails]);
 
   return (
@@ -54,7 +84,7 @@ const Points = ({ playerNames, gameDetails }) => {
           <div className="rounds-player-info">
             {item.playerdetails.map((player, playerIndex) => (
               <div key={playerIndex}>
-                <p>{player.playername}</p>
+                <p>{player.playername} points:</p>
                 <p>{player.playerpoints}</p>
               </div>
             ))}
