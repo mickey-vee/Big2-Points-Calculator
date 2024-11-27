@@ -57,8 +57,8 @@ function App() {
         <GetPoints
           playerNames={playerNames}
           getGameDetails={getGameDetails}
-          gameDetails={gameDetails}
           setRoundEdited={setRoundEdited}
+          roundCounter={roundCounter}
         />
       )}
 

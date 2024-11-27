@@ -4,8 +4,8 @@ import "./GetPoints.scss";
 const GetPoints = ({
   playerNames,
   getGameDetails,
-  gameDetails,
   setRoundEdited,
+  roundCounter,
 }) => {
   // Use a single object to store both points and winner
   const [roundDetails, setRoundDetails] = useState({
@@ -59,12 +59,12 @@ const GetPoints = ({
 
   // Function to edit round details.
   const editRound = () => {
-    setEditingRound(true);
-    setRoundEdited(true);
+    setEditingRound((prevState) => !prevState);
+    setRoundEdited((prevState) => !prevState);
   };
 
   const roundsArray = Array.from(
-    { length: gameDetails.round },
+    { length: roundCounter - 1 },
     (_, index) => index + 1
   );
 
@@ -125,22 +125,27 @@ const GetPoints = ({
           );
         })}
       </div>
+
       <div className="points-form__button-wrapper">
         <button type="submit" className="points-form__submit-button">
-          Enter points
+          {editingRound
+            ? `Enter updated points for round ${editRoundNumber}`
+            : "Enter Points"}
         </button>
-        <button
-          className="points-form__edit-button"
-          onClick={(e) => {
-            editRound();
-          }}
-        >
-          <img
-            src="./public/icons/edit.svg"
-            alt="edit-button"
-            className="points-form__edit-icon"
-          />
-        </button>
+        {roundCounter >= 2 && (
+          <button
+            className="points-form__edit-button"
+            onClick={(e) => {
+              editRound();
+            }}
+          >
+            <img
+              src="./public/icons/edit.svg"
+              alt="edit-button"
+              className="points-form__edit-icon"
+            />
+          </button>
+        )}
       </div>
     </form>
   );
