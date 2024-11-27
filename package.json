@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://mickey-vee.github.io/big2-points/",
+  "homepage": "https://mickey-vee.github.io/Big2-Points-Calculator/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
