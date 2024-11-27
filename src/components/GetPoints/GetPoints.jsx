@@ -60,7 +60,7 @@ const GetPoints = ({
   // Function to edit round details.
   const editRound = () => {
     setEditingRound((prevState) => !prevState);
-    setRoundEdited(true);
+    setRoundEdited((prevState) => !prevState);
   };
 
   const roundsArray = Array.from(
