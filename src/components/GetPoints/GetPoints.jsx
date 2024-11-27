@@ -128,7 +128,9 @@ const GetPoints = ({
 
       <div className="points-form__button-wrapper">
         <button type="submit" className="points-form__submit-button">
-          Enter points
+          {editingRound
+            ? `Enter updated points for round ${editRoundNumber}`
+            : "Enter Points"}
         </button>
         {roundCounter >= 2 && (
           <button
