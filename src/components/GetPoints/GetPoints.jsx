@@ -125,22 +125,25 @@ const GetPoints = ({
           );
         })}
       </div>
+
       <div className="points-form__button-wrapper">
         <button type="submit" className="points-form__submit-button">
           Enter points
         </button>
-        <button
-          className="points-form__edit-button"
-          onClick={(e) => {
-            editRound();
-          }}
-        >
-          <img
-            src="./public/icons/edit.svg"
-            alt="edit-button"
-            className="points-form__edit-icon"
-          />
-        </button>
+        {roundCounter >= 2 && (
+          <button
+            className="points-form__edit-button"
+            onClick={(e) => {
+              editRound();
+            }}
+          >
+            <img
+              src="./public/icons/edit.svg"
+              alt="edit-button"
+              className="points-form__edit-icon"
+            />
+          </button>
+        )}
       </div>
     </form>
   );
