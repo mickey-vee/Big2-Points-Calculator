@@ -14,8 +14,6 @@ const Points = ({ playerNames, gameDetails, roundEdited, setRoundEdited }) => {
   // Updating the points for each player
   useEffect(() => {
     if (roundEdited) {
-      console.log(gameDetails.round);
-
       for (let i = 0; i < history.length; i++) {
         if (history[i].round === gameDetails.round) {
           const updatedHistory = [...history];

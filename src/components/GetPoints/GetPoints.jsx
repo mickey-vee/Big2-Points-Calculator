@@ -4,7 +4,6 @@ import "./GetPoints.scss";
 const GetPoints = ({
   playerNames,
   getGameDetails,
-  gameDetails,
   setRoundEdited,
   roundCounter,
 }) => {
@@ -18,8 +17,6 @@ const GetPoints = ({
 
   const submitPoints = (e) => {
     e.preventDefault();
-
-    console.log(gameDetails.round);
 
     const numberOfEditedRound = parseInt(editRoundNumber);
 
@@ -62,7 +59,7 @@ const GetPoints = ({
 
   // Function to edit round details.
   const editRound = () => {
-    setEditingRound(true);
+    setEditingRound((prevState) => !prevState);
     setRoundEdited(true);
   };
 
