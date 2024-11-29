@@ -4,7 +4,6 @@ import { useState } from "react";
 const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
   const [players, setPlayers] = useState([]);
   const [numberOfPlayers, setNumberOfPlayers] = useState(0);
-
   const [uniquePlayer, setUniquePlayer] = useState(false);
   const [emptyPlayer, setEmptyPlayer] = useState(false);
 
@@ -86,9 +85,11 @@ const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
             </div>
           ) : null}
 
-          <button type="submit" className="player-form__button">
-            Start Game
-          </button>
+          {numberOfPlayers > 0 ? (
+            <button type="submit" className="player-form__button">
+              Start Game
+            </button>
+          ) : null}
         </form>
       </div>
     </div>
