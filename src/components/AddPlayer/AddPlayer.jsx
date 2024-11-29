@@ -44,22 +44,51 @@ const AddPlayer = ({ getPlayerData, setAddPlayers }) => {
   return (
     <div>
       <div>
-        <h2>How many players?</h2>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <button type="button" onClick={() => submitPlayers(2)}>
+        <h2 className="player-number__title">
+          Please select number of players.
+        </h2>
+        <form
+          className="player-number__form"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <button
+            className={
+              numberOfPlayers === 2
+                ? "player-number__button--selected"
+                : "player-number__button"
+            }
+            type="button"
+            onClick={() => submitPlayers(2)}
+          >
             2 Players
           </button>
-          <button type="button" onClick={() => submitPlayers(3)}>
+          <button
+            className={
+              numberOfPlayers === 3
+                ? "player-number__button--selected"
+                : "player-number__button"
+            }
+            type="button"
+            onClick={() => submitPlayers(3)}
+          >
             3 Players
           </button>
-          <button type="button" onClick={() => submitPlayers(4)}>
+          <button
+            className={
+              numberOfPlayers === 4
+                ? "player-number__button--selected"
+                : "player-number__button"
+            }
+            type="button"
+            onClick={() => submitPlayers(4)}
+          >
             4 Players
           </button>
         </form>
       </div>
 
       <div>
-        <form onSubmit={submitForm}>
+        <form onSubmit={submitForm} className="player-form">
           {numberOfPlayers !== 0 &&
             Array.from({ length: numberOfPlayers }).map((_, index) => (
               <label key={index} className="player-form__label">

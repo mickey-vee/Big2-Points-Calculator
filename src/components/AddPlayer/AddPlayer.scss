@@ -13,6 +13,7 @@
     width: 100%;
     margin-left: 10px;
     box-sizing: border-box;
+    padding: 10;
   }
 
   &__button {
@@ -24,6 +25,7 @@
     border-radius: 10px;
     border: none;
     cursor: pointer;
+    width: 100%;
   }
 
   &__error {
@@ -31,5 +33,31 @@
     color: rgb(223, 55, 55);
     font-weight: 700;
     text-align: center;
+  }
+}
+.player-number {
+  &__form {
+    display: flex;
+    gap: 2rem;
+    padding: 10px;
+  }
+
+  &__title {
+    margin: 0;
+    text-align: center;
+  }
+
+  &__button {
+    background-color: transparent;
+    text-align: center;
+    border-radius: 10px;
+    width: 80%;
+    cursor: pointer;
+
+    &--selected {
+      @extend .player-number__button;
+      background-color: #42ad4b;
+      color: white;
+    }
   }
 }
